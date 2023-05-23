@@ -1,0 +1,35 @@
+
+def solution(A):
+    N = len(A)
+    peaks = []
+
+    for i in range(1, N - 1):
+        if A[i] > A[i - 1] and A[i] > A[i + 1]:
+            peaks.append(i)
+
+    num_peaks = len(peaks)
+    
+    if num_peaks <= 1:
+       
+        return num_peaks
+
+    max_flags = 0
+    start = 1  
+    while start * (num_peaks - 1) <= N - 1:
+        flags = 1
+        pos = peaks[0]  
+
+        
+        for i in range(1, num_peaks):
+            if peaks[i] - pos >= start:
+                flags += 1
+                pos = peaks[i]
+
+                if flags >= start:
+                 
+                    break
+
+        max_flags = max(max_flags, flags)
+        start += 1
+
+    return max_flags
